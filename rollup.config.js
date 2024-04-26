@@ -1,13 +1,18 @@
 import typescript from "rollup-plugin-typescript2";
+import del from "rollup-plugin-delete";
 
 export default {
   input: "src/index.ts",
-
   output: {
-    file: "dist/index.cjs",
-    format: "cjs", // 输出为 CommonJS 格式
+    file: "dist/index.js",
+    format: "es",
   },
   plugins: [
-    typescript(), // 使用 TypeScript 插件处理 TypeScript 文件
+    del({
+      targets: "dist/*",
+      hook: "buildEnd",
+      runOnce: true,
+    }),
+    typescript(),
   ],
 };

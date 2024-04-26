@@ -4,7 +4,10 @@
   "description": "A command line tool that can encrypt and decrypt using the ECDSA algorithm.",
   "type": "module",
   "author": "reasonly8",
-  "repository": "https://github.com/reasonly8/secret-npm-pkg.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/reasonly8/secret-npm-pkg.git"
+  },
   "homepage": "https://github.com/reasonly8/secret-npm-pkg",
   "license": "MIT",
   "keywords": [
@@ -15,13 +18,16 @@
     "decrypt"
   ],
   "main": "dist/index.js",
+  "bin": "dist/index.js",
   "scripts": {
+    "dev": "rollup -c -w",
     "build": "rollup -c"
   },
   "devDependencies": {
     "@types/node": "^20.12.7",
     "@types/yargs": "^17.0.32",
     "rollup": "^4.16.4",
+    "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-typescript2": "^0.36.0",
     "typescript": "~5.4.0"
   },
