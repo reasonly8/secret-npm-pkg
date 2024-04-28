@@ -1,108 +1,70 @@
 #!/usr/bin/env node
 import yargs from "yargs/yargs";
 import { hideBin } from "yargs/helpers";
+import fs from "fs";
 import path from "path";
-// import path from "path";
+import { existKey } from "./existKey";
+import { KeyNameEnum } from "./KeyName.enum";
+import { updateConfig } from "./updateConfig";
+import { getKey } from "./getKey";
 
-yargs(hideBin(process.argv)).commandDir(
-  // path.join(import.meta.url, "..", "./commands")
-  "commands"
-);
-// const argv = yargs(hideBin(process.argv))
-//   .scriptName("secret")
-//   .option("path", {
-//     alias: "p",
-//     description: "Set private_key storage location",
-//     demandOption: true,
-//     nargs: 1,
-//     requiresArg: true,
-//     normalize: false,
-//     coerce: (input) => path.resolve(process.cwd(), input),
-//   })
-//   .help()
-//   .alias("h", "help")
-//   .version()
-//   .alias("v", "version").argv as any;
-
-// console.log(argv.path);
-
-// 现在，我想用 yargs 写一个命令行工具，这个工具的参数规则是这样的：`secret -p /foo/bar`，`-p` 必传，后面参数必须是一个路径格式的字符串，也是必传的，请写出实现代码。
-// .command(
-//   "$0 [path]",
-//   "Set private_key resolve path",
-//   (yargs) => {
-//     yargs.positional("path", {
-//       type: "string",
-//       description: "Private_key resolve path",
-//       normalize: true,
-//     });
-//     // return yargs.option("position", {
-//     //   alias: "p",
-//     //   description: "Set private_key storage location",
-//     //   nargs: 1,
-//     //   boolean: true,
-//     //   requiresArg: true,
-//     // });
-//   },
-//   (args) => {
-//     console.log(args);
-//   }
-// )
-// .usage(
-//   "$0",
-//   "Encrypt and decrypt text data using the ECDSA algorithm",
-//   (yargs) => {
-//     yargs.positional("text", {
-//       type: "string",
-//       describe: "private_key storage path",
-//       normalize: true,
-//     });
-//     // .command("$0 [path]", "Set private_key storage location", (yargs) => {
-//     //         yargs.positional("path", {
-//     //           type: "string",
-//     //           describe: "private_key storage path",
-//     //         });
-//     //       })
-//     return yargs
-//       .option("position", {
-//         alias: "p",
-//         description: "Set private_key storage location",
-//         // nargs: 1,
-//         boolean: true,
-//         // requiresArg: true,
-//       })
-//       .option("encrypt", {
-//         alias: "e",
-//         description: "Encryption",
-//         boolean: true,
-//       })
-//       .option("decrypt", {
-//         alias: "d",
-//         description: "Decryption",
-//         boolean: true,
-//       })
-//       .option("list", {
-//         alias: "l",
-//         description: "Show name list",
-//         boolean: true,
-//       });
-//   },
-//   (args) => {
-//     console.log(args);
-//     if (args.position) {
-//       if (!args.text) {
-//         yargs().showHelp();
-//       } else {
-//         console.log("private_key updated: ", args.text);
-//       }
-//     } else if (args.encrypt) {
-//       console.log("加密");
-//     } else if (args.decrypt) {
-//       console.log("解密");
-//     } else if (args.list) {
-//       console.log("列出列表");
-//     } else {
-//       yargs().showHelp();
-//     }
-//   }
-// )
+yargs(hideBin(process.argv))
+  .command({
+    command: "config",
+    describe: "Config command",
+    builder(yargs) {
+      return yargs.option("path", {
+        alias: "p",
+        description: "Set private_key storage location",
+        demandOption: true, // 必传传入 `path` 参数，即：`--path` 或 `-p` 必须要有
+        requiresArg: true, // 是否必填参数
+        nargs: 1, // 限制 `-p` 后面的参数个数，表示 `-p [xxx]` 里的 xxx
+        type: "string",
+        normalize: true, // 开启时，会基于本机操作系统自动转换路径，比如在 windows 上输入：`d:/`，会转为 `d:\`
+      });
+    },
+    handler(args) {
+      const p = args.p as string;
+      if (!path.isAbsolute(p)) {
+        return console.log(`${p} is not an absolute path`);
+      }
+      if (!fs.existsSync(p)) {
+        return console.log(`${p} is not a valid path`);
+      }
+      if (!existKey(p, KeyNameEnum.PUBLIC)) {
+        return console.log(`${KeyNameEnum.PUBLIC} file not found in ${p}`);
+      }
+      if (!existKey(p, KeyNameEnum.PIRVATE)) {
+        return console.log(`${KeyNameEnum.PIRVATE} file not found in ${p}`);
+      }
+      const success = updateConfig({ keyDir: p });
+      if (!success) {
+        return console.log("Update config failed");
+      }
+      console.log("Successfully");
+    },
+  })
+  .command({
+    command: "$0",
+    describe: "Encrypt text",
+    builder(yargs) {
+      return yargs.option("encrypt", {
+        alias: "e",
+        description: "Encrypt plain text with private_key",
+        demandOption: true,
+        requiresArg: true,
+        nargs: 1,
+        type: "string",
+      });
+    },
+    handler(args) {
+      const text = args.e as string;
+      // getKey();
+      console.log(text);
+    },
+  })
+  .version()
+  .alias("v", "version")
+  .help()
+  .alias("h", "help")
+  .parse();

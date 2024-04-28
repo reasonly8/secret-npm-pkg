@@ -1,5 +1,4 @@
-{
-  "compilerOptions": {
+{  "compilerOptions": {
     "target": "ES2020",
     "module": "ES2020",
     "moduleResolution": "Bundler",
@@ -9,8 +8,9 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
-    "rootDir": "./src",
     "declaration": true,
+    "declarationDir": "./typings",
+    "verbatimModuleSyntax": true,
     "sourceMap": true
   },
   "include": ["src/**/*"],
