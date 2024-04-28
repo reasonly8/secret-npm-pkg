@@ -2,10 +2,11 @@ import fs from "fs";
 import path from "path";
 import type { Config } from "./index.d";
 import { merge } from "lodash-es";
+import { getConfig } from "./getConfig";
 
-export function updateConfig(config: Partial<Config>) {
+export function updateConfig(config: Partial<Config>, configFileName: string) {
   try {
-    const configPath = getConfigPath();
+    const configPath = getConfigPath(configFileName);
     const exist = isExistConfig(configPath);
 
     if (!exist) {
@@ -27,8 +28,8 @@ function getDefaultConfig() {
   return config;
 }
 
-function getConfigPath() {
-  const configPath = path.join(import.meta.dirname, "./config.json");
+function getConfigPath(configFileName: string) {
+  const configPath = path.join(import.meta.dirname, configFileName);
   return configPath;
 }
 
@@ -39,12 +40,6 @@ function isExistConfig(path: string) {
 
 function createConfigFile(configPath: string, defaultConfig: Config) {
   fs.writeFileSync(configPath, JSON.stringify(defaultConfig));
-}
-
-function getConfig(path: string) {
-  const rawConfig = fs.readFileSync(path).toString();
-  const config = JSON.parse(rawConfig);
-  return config;
 }
 
 function setConfig(path: string, config: Config) {

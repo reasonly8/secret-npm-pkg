@@ -7,6 +7,9 @@ import { existKey } from "./existKey";
 import { KeyNameEnum } from "./KeyName.enum";
 import { updateConfig } from "./updateConfig";
 import { getKey } from "./getKey";
+import { validate } from "./validate";
+
+const CONFIG_FILE = "config.json";
 
 yargs(hideBin(process.argv))
   .command({
@@ -37,7 +40,7 @@ yargs(hideBin(process.argv))
       if (!existKey(p, KeyNameEnum.PIRVATE)) {
         return console.log(`${KeyNameEnum.PIRVATE} file not found in ${p}`);
       }
-      const success = updateConfig({ keyDir: p });
+      const success = updateConfig({ keyDir: p }, CONFIG_FILE);
       if (!success) {
         return console.log("Update config failed");
       }
@@ -58,6 +61,7 @@ yargs(hideBin(process.argv))
       });
     },
     handler(args) {
+      validate(CONFIG_FILE);
       const text = args.e as string;
       // getKey();
       console.log(text);
