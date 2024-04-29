@@ -3,22 +3,30 @@
 Provide a command line tool `secret` for encrypt and decrypt.
 
 ```sh
-pnpm i -g @reasonly8/secret
+npm i -g @reasonly8/secret
 
 # print version
 secret -v
 
-# set private key storage path
-secret -p {path}
+# help
+secret -h
+
+# set key storage path link: d:/
+secret config -p d:/
+# or
+# secret config -p /d
+
+# clear config
+secret config -c
 
 # encrypt
-secret -e {text}
+secret -e <plain_text>
 
 # decrypt
-secret -d {text}
+secret -d <encrypted_data>
 
-# set alias name
-secret -n {name} -d {text}
+# save alias name
+secret -s <name> -d <encrypted_data>
 
 # show list
 secret -l

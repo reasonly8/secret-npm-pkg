@@ -13,6 +13,11 @@ export default {
       hook: "buildEnd",
       runOnce: true,
     }),
-    typescript(),
+    typescript({
+      include: "src/**/*.ts",
+      exclude: "node_modules/**",
+      useTsconfigDeclarationDir: false,
+      abortOnError: true,
+    }),
   ],
 };
