@@ -11,7 +11,7 @@ secret -v
 # help
 secret -h
 
-# set key storage path link: d:/
+# set key storage path like: d:/
 secret config -p d:/
 # or
 # secret config -p /d
