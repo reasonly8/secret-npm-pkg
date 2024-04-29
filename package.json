@@ -1,6 +1,6 @@
 {
   "name": "@reasonly8/secret",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A command line tool that can encrypt and decrypt using the RSA algorithm.",
   "type": "module",
   "main": "dist/index.js",
