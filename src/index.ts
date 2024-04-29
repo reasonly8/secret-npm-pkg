@@ -6,6 +6,7 @@ import path from "path";
 import { merge } from "lodash-es";
 import crypto from "crypto";
 import type { Config } from "./index.d";
+import { version } from "../package.json";
 
 const CONFIG_FILE = "config.json";
 const enum KeyNameEnum {
@@ -236,7 +237,7 @@ yargs(hideBin(process.argv))
       }
     },
   })
-  .version()
+  .version(version)
   .alias("v", "version")
   .help()
   .alias("h", "help")

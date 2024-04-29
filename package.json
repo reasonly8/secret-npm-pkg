@@ -34,6 +34,7 @@
     "build": "rollup -c"
   },
   "devDependencies": {
+    "@rollup/plugin-json": "^6.1.0",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^20.12.7",
     "@types/yargs": "^17.0.32",
