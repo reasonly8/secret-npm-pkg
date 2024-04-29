@@ -5,6 +5,7 @@
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.js",
+  "private": false,
   "author": "reasonly8",
   "files": [
     "dist/"
@@ -14,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/reasonly8/secret-npm-pkg.git"
+    "url": "git+https://github.com/reasonly8/secret-npm-pkg.git"
   },
   "bugs": {
     "url": "https://github.com/reasonly8/secret-npm-pkg/issues"
