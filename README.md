@@ -2,9 +2,15 @@
 
 Provide a command line tool `secret` for encrypt and decrypt.
 
+## Install
+
 ```sh
 npm i -g @reasonly8/secret
+```
 
+## Usage Example
+
+```sh
 # print version
 secret -v
 

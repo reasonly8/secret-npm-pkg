@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 import yargs from "yargs/yargs";
 import { hideBin } from "yargs/helpers";
-import fs, { writeFileSync } from "fs";
-import path from "path";
+import fs, { writeFileSync } from "node:fs";
+import path from "node:path";
 import { merge } from "lodash-es";
-import crypto from "crypto";
+import crypto from "node:crypto";
 import type { Config } from "./index.d";
 import { version } from "../package.json";
 
