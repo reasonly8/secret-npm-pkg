@@ -31,9 +31,6 @@ devDependencies:
   rollup-plugin-delete:
     specifier: ^2.0.0
     version: 2.0.0
-  rollup-plugin-dts:
-    specifier: ^6.1.0
-    version: 6.1.0(rollup@4.16.4)(typescript@5.4.5)
   rollup-plugin-terser:
     specifier: ^7.0.2
     version: 7.0.2(rollup@4.16.4)
@@ -702,12 +699,6 @@ packages:
       yallist: 4.0.0
     dev: true
 
-  /magic-string@0.30.10:
-    resolution: {integrity: sha512-iIRwTIf0QKV3UAnYK4PU8uiEc4SRh5jX0mwpIwETPpHdhVM4f53RSwS/vXvN1JhGX+Cs7B8qIq3d6AH49O5fAQ==}
-    dependencies:
-      '@jridgewell/sourcemap-codec': 1.4.15
-    dev: true
-
   /make-dir@3.1.0:
     resolution: {integrity: sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==}
     engines: {node: '>=8'}
@@ -834,20 +825,6 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       del: 5.1.0
-    dev: true
-
-  /rollup-plugin-dts@6.1.0(rollup@4.16.4)(typescript@5.4.5):
-    resolution: {integrity: sha512-ijSCPICkRMDKDLBK9torss07+8dl9UpY9z1N/zTeA1cIqdzMlpkV3MOOC7zukyvQfDyxa1s3Dl2+DeiP/G6DOw==}
-    engines: {node: '>=16'}
-    peerDependencies:
-      rollup: ^3.29.4 || ^4
-      typescript: ^4.5 || ^5.0
-    dependencies:
-      magic-string: 0.30.10
-      rollup: 4.16.4
-      typescript: 5.4.5
-    optionalDependencies:
-      '@babel/code-frame': 7.24.2
     dev: true
 
   /rollup-plugin-terser@7.0.2(rollup@4.16.4):
